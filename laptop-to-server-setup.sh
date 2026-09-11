@@ -154,7 +154,7 @@ else
 fi
 
 # ==============================================================================
-# 6 & 7. Apply Kernel Panic Watchdog & Tune Swappiness
+# 6. Apply Kernel Panic Watchdog & Tune Swappiness
 # ==============================================================================
 echo "Applying Kernel Panic Watchdog settings and tuning VM swappiness..."
 
@@ -181,7 +181,7 @@ else
 fi
 
 # ==============================================================================
-# 8. Limit Systemd Journal Log Size (Restricted to 500MB)
+# 7. Limit Systemd Journal Log Size (Restricted to 500MB)
 # ==============================================================================
 echo "Configuring systemd-journald log rotation limits..."
 
