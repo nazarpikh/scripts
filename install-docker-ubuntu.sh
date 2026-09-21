@@ -72,7 +72,7 @@ fi
 # ------------------------------------------------------------------------------
 log_info "Step 3/8: Setting up Docker official GPG key..."
 mkdir -p /etc/apt/keyrings
-if curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg --overwrite; then
+if curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg; then
     chmod a+r /etc/apt/keyrings/docker.gpg
     log_success "Docker GPG key downloaded and installed."
 else
