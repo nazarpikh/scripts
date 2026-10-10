@@ -184,6 +184,20 @@ else
 fi
 
 # ------------------------------------------------------------------------------
+# Step 9: Self-cleanup (Remove this installation script)
+# ------------------------------------------------------------------------------
+log_info "Step 9/9: Self-cleaning up installation script..."
+
+SCRIPT_PATH=$(readlink -f "$0" 2>/dev/null || echo "$0")
+
+if [ -f "$SCRIPT_PATH" ]; then
+    rm -f "$SCRIPT_PATH"
+    log_success "Installation script deleted successfully."
+else
+    log_warning "Could not locate script file for self-deletion."
+fi
+
+# ------------------------------------------------------------------------------
 # Verification & Final Output
 # ------------------------------------------------------------------------------
 echo "=================================================="
