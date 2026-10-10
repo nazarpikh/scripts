@@ -49,7 +49,7 @@ echo "=================================================="
 # ------------------------------------------------------------------------------
 # Step 1: Remove legacy Docker packages
 # ------------------------------------------------------------------------------
-log_info "Step 1/8: Removing old or conflicting Docker packages..."
+log_info "Step 1/9: Removing old or conflicting Docker packages..."
 if apt-get remove -y docker docker-engine docker.io containerd runc >/dev/null 2>&1; then
     log_success "Legacy packages removed or none were present."
 else
@@ -59,7 +59,7 @@ fi
 # ------------------------------------------------------------------------------
 # Step 2: Install system prerequisites
 # ------------------------------------------------------------------------------
-log_info "Step 2/8: Installing system prerequisites (ca-certificates, curl, gnupg, jq)..."
+log_info "Step 2/9: Installing system prerequisites (ca-certificates, curl, gnupg, jq)..."
 if apt-get update -y >/dev/null && apt-get install -y ca-certificates curl gnupg lsb-release jq >/dev/null; then
     log_success "System prerequisites installed successfully."
 else
@@ -70,7 +70,7 @@ fi
 # ------------------------------------------------------------------------------
 # Step 3: Add Docker official GPG key
 # ------------------------------------------------------------------------------
-log_info "Step 3/8: Setting up Docker official GPG key..."
+log_info "Step 3/9: Setting up Docker official GPG key..."
 mkdir -p /etc/apt/keyrings
 if curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg; then
     chmod a+r /etc/apt/keyrings/docker.gpg
@@ -83,7 +83,7 @@ fi
 # ------------------------------------------------------------------------------
 # Step 4: Configure Docker repository
 # ------------------------------------------------------------------------------
-log_info "Step 4/8: Adding Docker APT repository..."
+log_info "Step 4/9: Adding Docker APT repository..."
 ARCH=$(dpkg --print-architecture)
 CODENAME=$(lsb_release -cs)
 
@@ -100,7 +100,7 @@ fi
 # ------------------------------------------------------------------------------
 # Step 5: Install Docker Engine and Compose plugin
 # ------------------------------------------------------------------------------
-log_info "Step 5/8: Installing Docker CE, CLI, containerd, and Compose plugin..."
+log_info "Step 5/9: Installing Docker CE, CLI, containerd, and Compose plugin..."
 if apt-get update -y >/dev/null && apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-buildx-plugin >/dev/null; then
     log_success "Docker Engine and packages installed successfully."
 else
@@ -111,7 +111,7 @@ fi
 # ------------------------------------------------------------------------------
 # Step 6: Configure Global Docker Daemon Logging (/etc/docker/daemon.json)
 # ------------------------------------------------------------------------------
-log_info "Step 6/8: Configuring Docker daemon logging limits (max-size: 10m, max-file: 3, compress: true)..."
+log_info "Step 6/9: Configuring Docker daemon logging limits (max-size: 10m, max-file: 3, compress: true)..."
 
 DAEMON_JSON="/etc/docker/daemon.json"
 mkdir -p /etc/docker
@@ -156,7 +156,7 @@ fi
 # ------------------------------------------------------------------------------
 # Step 7: Manage User Permissions (Post-install step)
 # ------------------------------------------------------------------------------
-log_info "Step 7/8: Granting user '${TARGET_USER}' access to Docker group..."
+log_info "Step 7/9: Granting user '${TARGET_USER}' access to Docker group..."
 
 if ! getent group docker >/dev/null; then
     groupadd docker
@@ -171,7 +171,7 @@ fi
 # ------------------------------------------------------------------------------
 # Step 8: Enable systemd services and restart Docker
 # ------------------------------------------------------------------------------
-log_info "Step 8/8: Enabling auto-start and restarting Docker daemon to apply changes..."
+log_info "Step 8/9: Enabling auto-start and restarting Docker daemon to apply changes..."
 
 systemctl enable docker.service >/dev/null 2>&1
 systemctl enable containerd.service >/dev/null 2>&1
